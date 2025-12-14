@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React, { useState, useEffect } from 'react'
 import { getUserSpendPermissions, revokeSpendPermission } from '@/lib/spend-permissions'
@@ -40,7 +40,7 @@ export function SpendPermissionManager({ isAuthenticated, userAddress }: SpendPe
         throw new Error(`Failed to get server wallet: ${walletResponse.status}`)
       }
 
-      const walletData = await walletResponse.json();
+      const walletData = await walletResponse?.json();
       console.log('💰 Server wallet data:', walletData)
       
       const spenderAddress = walletData.smartAccountAddress;
@@ -92,6 +92,10 @@ export function SpendPermissionManager({ isAuthenticated, userAddress }: SpendPe
   }
 
   const handleRevokePermission = async (permission: any) => {
+    // Validate input parameters
+    if (!permission || permission === null || permission === undefined) {
+      throw new Error("Parameter 'permission' is required");
+    }
     setIsRevoking(true)
     setPermissionError('')
 

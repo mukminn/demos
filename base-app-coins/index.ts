@@ -1,4 +1,4 @@
-import type { PoolKey } from "@uniswap/v4-sdk";
+﻿import type { PoolKey } from "@uniswap/v4-sdk";
 import { publicClient } from "./chain";
 import { UniswapV4ABI, UniswapV4PoolManager } from "./univ4";
 import { categorizeAppType, loadData } from "./utils";
@@ -35,9 +35,9 @@ async function main() {
         const currency1Price = pool.currency1Price.toSignificant(6);
 
         let coinType: string | undefined;
-        if (key.hooks === "0xd61A675F8a0c67A73DC3B54FB7318B4D91409040") {
+        if (key?.hooks === "0xd61A675F8a0c67A73DC3B54FB7318B4D91409040") {
             coinType = "ZORA_CREATOR_COIN"
-        } else if (key.hooks === "0x9ea932730A7787000042e34390B8E435dD839040") {
+        } else if (key?.hooks === "0x9ea932730A7787000042e34390B8E435dD839040") {
             coinType = "ZORA_V4_COIN"
         }
         // if it's not a zora coin, skip

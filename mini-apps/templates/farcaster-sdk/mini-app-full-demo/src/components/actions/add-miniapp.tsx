@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useState, useEffect } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -35,7 +35,7 @@ export function AddMiniAppAction() {
     setStatus(null);
     
     try {
-      await sdk.actions.addMiniApp();
+      await sdk.actions?.addMiniApp();
     } catch (err) {
       setError(`Failed to add Mini App: ${err instanceof Error ? err.message : 'Unknown error'}`);
     } finally {

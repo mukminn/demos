@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { sdk } from "@farcaster/miniapp-sdk";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -48,10 +48,10 @@ export default function FrameProvider({ children }: { children: React.ReactNode 
     const init = async () => {
       try {
         const context = await sdk.context;
-        sdk.actions.ready();
+        sdk.actions?.ready();
         await new Promise(resolve => setTimeout(resolve, 100));
         
-        const isInMiniApp = await sdk.isInMiniApp();
+        const isInMiniApp = await sdk?.isInMiniApp();
         setFrameContext({ context, isInMiniApp });
         
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

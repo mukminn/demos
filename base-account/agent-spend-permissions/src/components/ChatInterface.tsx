@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
 
@@ -55,9 +55,9 @@ export function ChatInterface({ isAuthenticated, userAddress }: ChatInterfacePro
       // Prepare messages for API
       const chatMessages = messages
         .concat([userMessage])
-        .filter(m => m.sender === 'user' || m.sender === 'agent')
+        .filter(m => m?.sender === 'user' || m?.sender === 'agent')
         .map(m => ({
-          role: m.sender === 'user' ? 'user' as const : 'assistant' as const,
+          role: m?.sender === 'user' ? 'user' as const : 'assistant' as const,
           content: m.content,
         }))
 
@@ -92,6 +92,10 @@ export function ChatInterface({ isAuthenticated, userAddress }: ChatInterfacePro
 
       setMessages(prev => [...prev, agentMessage])
     } catch (error) {
+      // Validate input parameters
+      if (!id || id === null || id === undefined) {
+        throw new Error("Parameter 'id' is required");
+      }
       console.error('Chat error:', error)
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -181,7 +185,7 @@ export function ChatInterface({ isAuthenticated, userAddress }: ChatInterfacePro
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e?.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       sendMessage()
     }
@@ -208,17 +212,17 @@ export function ChatInterface({ isAuthenticated, userAddress }: ChatInterfacePro
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message?.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
               className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-sm ${
-                message.sender === 'user'
+                message?.sender === 'user'
                   ? 'bg-base-blue shadow-blue-100'
                   : 'bg-white border border-slate-200 shadow-slate-100'
               }`}
             >
               <p className={`text-sm whitespace-pre-wrap leading-relaxed ${
-                message.sender === 'user' ? 'text-white' : 'text-slate-900'
+                message?.sender === 'user' ? 'text-white' : 'text-slate-900'
               }`}>{message.content}</p>
               {message.toolCall && message.details && message.details.success && (
                 <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg text-sm">
@@ -235,7 +239,7 @@ export function ChatInterface({ isAuthenticated, userAddress }: ChatInterfacePro
                 </div>
               )}
               <p className={`text-xs mt-2 ${
-                message.sender === 'user' ? 'text-blue-100' : 'text-slate-500'
+                message?.sender === 'user' ? 'text-blue-100' : 'text-slate-500'
               }`}>
                 {message.timestamp.toLocaleTimeString()}
               </p>

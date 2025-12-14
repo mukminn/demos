@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -13,7 +13,7 @@ export function QuickAuthAction() {
     setLoading(true);
     setError(null);
     try {
-      const result = await sdk.quickAuth.getToken();
+      const result = await sdk.quickAuth?.getToken();
       setToken(result.token);
     } catch (err) {
       setError(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`);

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React, { useState, useEffect } from 'react'
 import { SignInWithBaseButton } from '@/components/SignInWithBase'
@@ -29,6 +29,10 @@ export default function Home() {
   }
 
   const handleSignIn = async (address: string) => {
+    // Validate input parameters
+    if (!address || address === null || address === undefined) {
+      throw new Error("Parameter 'address' is required");
+    }
     // Signature verification is now handled in the SignInWithBase component
     // If we reach this point, the user has been successfully authenticated
     console.log('User authenticated with address:', address)

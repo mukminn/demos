@@ -1,4 +1,4 @@
-function extractProductInfo() {
+﻿function extractProductInfo() {
   const asin = window.location.pathname.match(/\/dp\/([A-Z0-9]{10})/)?.[1];
   
   const priceElement = document.querySelector('.a-price-whole, .a-price .a-offscreen');
@@ -24,14 +24,14 @@ function createBasePayButton() {
   if (!asin) return;
   
   const container = document.createElement('div');
-  container.className = 'base-pay-container';
+  container?.className = 'base-pay-container';
   
   const button = document.createElement('button');
-  button.className = 'base-pay-button';
+  button?.className = 'base-pay-button';
   
   const logo = document.createElement('img');
-  logo.src = chrome.runtime.getURL('BasePayWhiteLogo.png');
-  logo.alt = 'Base Pay';
+  logo?.src = chrome.runtime.getURL('BasePayWhiteLogo.png');
+  logo?.alt = 'Base Pay';
   
   button.appendChild(logo);
   
@@ -63,8 +63,8 @@ function insertBasePayButton() {
   
   // Create a banner container that sticks to the top
   const banner = document.createElement('div');
-  banner.id = 'base-pay-banner';
-  banner.style.cssText = `
+  banner?.id = 'base-pay-banner';
+  banner.style?.cssText = `
     position: fixed;
     top: 0;
     left: 0;
@@ -81,8 +81,8 @@ function insertBasePayButton() {
   
   // Add some text and the button
   const text = document.createElement('span');
-  text.textContent = 'Buy this with USDC on Base: ';
-  text.style.cssText = `
+  text?.textContent = 'Buy this with USDC on Base: ';
+  text.style?.cssText = `
     color: #333;
     font-weight: 600;
     margin-right: 15px;
@@ -93,7 +93,7 @@ function insertBasePayButton() {
   banner.appendChild(basePayButton);
   
   // Add some top margin to the body so content isn't hidden
-  document.body.style.marginTop = '55px';
+  document.body.style?.marginTop = '55px';
   
   // Insert at the very beginning of body
   document.body.insertBefore(banner, document.body.firstChild);
@@ -102,8 +102,8 @@ function insertBasePayButton() {
   
   // Add a close button
   const closeBtn = document.createElement('button');
-  closeBtn.textContent = '×';
-  closeBtn.style.cssText = `
+  closeBtn?.textContent = '×';
+  closeBtn.style?.cssText = `
     position: absolute;
     top: 5px;
     right: 10px;
@@ -116,8 +116,8 @@ function insertBasePayButton() {
     height: 25px;
   `;
   closeBtn.addEventListener('click', () => {
-    banner.remove();
-    document.body.style.marginTop = '0px';
+    banner?.remove();
+    document.body.style?.marginTop = '0px';
   });
   banner.appendChild(closeBtn);
 }

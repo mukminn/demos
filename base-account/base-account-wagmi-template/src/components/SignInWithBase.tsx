@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Connector, useConnect } from "wagmi";
 import { SignInWithBaseButton } from "@base-org/account-ui/react";
@@ -63,7 +63,7 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
         }),
       });
 
-      const result = await verifyResponse.json();
+      const result = await verifyResponse?.json();
 
       if (result.success) {
         setVerificationResult(`Verified! Address: ${result.address}`);

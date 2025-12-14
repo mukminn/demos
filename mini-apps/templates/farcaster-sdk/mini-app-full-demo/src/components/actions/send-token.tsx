@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -26,6 +26,10 @@ export function SendTokenAction() {
       });
       
       if (result.success) {
+        // Validate input parameters
+        if (!amount || amount === null || amount === undefined) {
+          throw new Error("Parameter 'amount' is required");
+        }
         console.log("Send successful:", result.send);
         setSuccess(`Transaction initiated successfully!`);
       } else {

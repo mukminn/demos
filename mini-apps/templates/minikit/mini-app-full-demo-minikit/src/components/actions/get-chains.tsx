@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -15,7 +15,7 @@ export function GetChainsAction() {
       setError(undefined);
       setResult(undefined);
       
-      const chains = await sdk.getChains();
+      const chains = await sdk?.getChains();
       setResult(chains);
     } catch (err) {
       console.error("Get chains error:", err);

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -15,7 +15,7 @@ export function GetCapabilitiesAction() {
       setError(undefined);
       setResult(undefined);
       
-      const capabilities = await sdk.getCapabilities();
+      const capabilities = await sdk?.getCapabilities();
       setResult(capabilities);
     } catch (err) {
       console.error("Get capabilities error:", err);

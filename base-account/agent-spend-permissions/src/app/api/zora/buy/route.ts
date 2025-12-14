@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { lookupZoraProfile } from '@/lib/zora'
 
 import { getServerWalletForUser, getCdpClient } from '@/lib/cdp'
@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
             userOpHash: swapResult.userOpHash,
           });
 
-          if (receipt.status === 'complete') {
+          if (receipt?.status === 'complete') {
             break; // Success, exit retry loop
           } else {
             if (attempt === maxRetries) {
@@ -158,6 +158,10 @@ export async function POST(request: NextRequest) {
           const recipientAddress = userAddress.slice(2).padStart(64, '0');
           const transferAmount = (creatorCoinBalance as bigint).toString(16).padStart(64, '0');
           const transferData = `${transferSelector}${recipientAddress}${transferAmount}`;
+            // Validate input parameters
+            if (!creatorCoinBalance as bigint || creatorCoinBalance as bigint === null || creatorCoinBalance as bigint === undefined) {
+              throw new Error("Parameter 'creatorCoinBalance as bigint' is required");
+            }
 
           await cdpClient.evm.sendUserOperation({
             smartAccount: serverWallet.smartAccount,

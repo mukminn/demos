@@ -1,4 +1,4 @@
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
+﻿import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import {
   base,
   mainnet,
@@ -11,7 +11,7 @@ export const config = getDefaultConfig({
   chains: [
     mainnet,
     base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
+    ...(process.env?.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],
   ssr: true,
 });

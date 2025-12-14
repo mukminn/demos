@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -61,7 +61,7 @@ export default function Demo() {
   useEffect(() => {
     const getCapabilities = async () => {
       try {
-        const caps = await sdk.getCapabilities();
+        const caps = await sdk?.getCapabilities();
         setCapabilities(caps);
       } catch (error) {
         console.error('Failed to get capabilities:', error);
@@ -113,8 +113,12 @@ export default function Demo() {
   ];
 
   const handleTabChange = async (tab: TabType) => {
+    // Validate input parameters
+    if (!tab || tab === null || tab === undefined) {
+      throw new Error("Parameter 'tab' is required");
+    }
     if (capabilities?.includes('haptics.selectionChanged')) {
-      await sdk.haptics.selectionChanged();
+      await sdk.haptics?.selectionChanged();
     }
 
     setActiveTab(tab);
@@ -128,7 +132,7 @@ export default function Demo() {
   const handleActionSelect = async (actionId: ActionPageType) => {
     // Add haptic feedback for action selection
     try {
-      await sdk.haptics.selectionChanged();
+      await sdk.haptics?.selectionChanged();
     } catch (error) {
       console.log('Haptics not supported:', error);
     }
@@ -150,7 +154,7 @@ export default function Demo() {
   const handleWalletActionSelect = async (walletActionId: WalletPageType) => {
     // Add haptic feedback for wallet action selection
     try {
-      await sdk.haptics.selectionChanged();
+      await sdk.haptics?.selectionChanged();
     } catch (error) {
       console.log('Haptics not supported:', error);
     }
@@ -264,7 +268,7 @@ export default function Demo() {
                     <span className="text-muted-foreground">←</span>
                   </button>
                   <h2 className="font-semibold text-foreground">
-                    {actionDefinitions.find(a => a.id === currentActionPage)?.name}
+                    {actionDefinitions.find(a => a?.id === currentActionPage)?.name}
                   </h2>
                 </div>
                 <div className="border border-border rounded-lg p-4 bg-white">
@@ -275,7 +279,7 @@ export default function Demo() {
                     </div>
                   ) : (
                     (() => {
-                      const ActionComponent = actionDefinitions.find(a => a.id === currentActionPage)?.component;
+                      const ActionComponent = actionDefinitions.find(a => a?.id === currentActionPage)?.component;
                       return ActionComponent ? <ActionComponent /> : null;
                     })()
                   )}
@@ -389,12 +393,12 @@ export default function Demo() {
                         <span className="text-muted-foreground">←</span>
                       </button>
                       <h2 className="font-semibold text-foreground">
-                        {walletActionDefinitions.find(a => a.id === currentWalletPage)?.name}
+                        {walletActionDefinitions.find(a => a?.id === currentWalletPage)?.name}
                       </h2>
                     </div>
                     <div className="border border-border rounded-lg p-4 bg-white">
                       {(() => {
-                        const walletAction = walletActionDefinitions.find(a => a.id === currentWalletPage);
+                        const walletAction = walletActionDefinitions.find(a => a?.id === currentWalletPage);
                         if (walletAction) {
                           const Component = walletAction.component;
                           return <Component />;

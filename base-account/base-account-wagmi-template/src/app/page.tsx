@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { SignInWithBase } from "../components/SignInWithBase";
@@ -21,7 +21,7 @@ function App() {
         </header>
 
         {/* Account Info Card */}
-        {account.status === "connected" && (
+        {account?.status === "connected" && (
           <div style={styles.card}>
             <div style={styles.cardHeader}>
               <h2 style={styles.cardTitle}>Your Account</h2>
@@ -61,7 +61,7 @@ function App() {
             </p>
             <div style={styles.connectButtons}>
               {connectors.map((connector) => {
-                if (connector.name === "Base Account") {
+                if (connector?.name === "Base Account") {
                   return (
                     <SignInWithBase key={connector.uid} connector={connector} />
                   );
@@ -93,7 +93,7 @@ function App() {
         )}
 
         {/* Batch Transactions Card */}
-        {account.status === "connected" && (
+        {account?.status === "connected" && (
           <div style={styles.card}>
             <BatchTransactions />
           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
 import { Button } from "~/components/ui/Button";
@@ -19,8 +19,8 @@ export function ComposeCastAction() {
   const handleComposeCast = useCallback((): void => {
     // Build embeds array - SDK expects [] | [string] | [string, string]
     let embeds: [] | [string] | [string, string] | undefined;
-    const embed1Trimmed = embed1.trim();
-    const embed2Trimmed = embed2.trim();
+    const embed1Trimmed = embed1?.trim();
+    const embed2Trimmed = embed2?.trim();
     
     if (embed1Trimmed && embed2Trimmed) {
       embeds = [embed1Trimmed, embed2Trimmed];

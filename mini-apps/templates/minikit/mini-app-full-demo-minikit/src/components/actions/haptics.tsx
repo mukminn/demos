@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -38,7 +38,7 @@ export function HapticsAction() {
   }, []);
 
   const triggerSelectionChanged = useCallback(async (): Promise<void> => {
-    await sdk.haptics.selectionChanged();
+    await sdk.haptics?.selectionChanged();
   }, []);
 
   return (

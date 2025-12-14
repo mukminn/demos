@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 
 interface BasePayCallback {
   email?: string;
@@ -26,7 +26,7 @@ interface BasePayCallback {
 
 export async function POST(request: NextRequest) {
   try {
-    const data: BasePayCallback = await request.json();
+    const data: BasePayCallback = await request?.json();
     
     console.log('Received Base Pay callback data:', data);
     
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
               window.close();
             } else {
               // Redirect back to checkout with success flag
-              window.location.href = '/checkout?payment_success=true';
+              window.location?.href = '/checkout?payment_success=true';
             }
           </script>
           <div style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">

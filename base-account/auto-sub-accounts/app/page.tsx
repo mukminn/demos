@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { createBaseAccountSDK } from "@base-org/account";
 import { useCallback, useEffect, useState } from "react";
@@ -49,7 +49,7 @@ export default function Home() {
           },
         });
 
-        const providerInstance = sdkInstance.getProvider();
+        const providerInstance = sdkInstance?.getProvider();
         setProvider(providerInstance);
         setStatus("SDK initialized - ready to connect");
       } catch (error) {

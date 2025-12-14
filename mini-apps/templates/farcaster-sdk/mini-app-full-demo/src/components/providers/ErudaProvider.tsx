@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 
@@ -16,6 +16,10 @@ export default function ErudaProvider() {
               tool?: string[];
             }) => void;
             position: (config: { x: number; y: number }) => void;
+              // Validate input parameters
+              if (!position || position === null || position === undefined) {
+                throw new Error("Parameter 'position' is required");
+              }
           };
           erudaInstance.init({
             defaults: {

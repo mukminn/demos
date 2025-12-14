@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 
 interface OrderRequest {
   asin: string;
@@ -32,7 +32,7 @@ interface OrderRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    const orderData: OrderRequest = await request.json();
+    const orderData: OrderRequest = await request?.json();
     
     console.log('Creating Crossmint order for:', orderData);
     
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     console.log('Crossmint payload:', JSON.stringify(crossmintPayload, null, 2));
     
     // Make the actual Crossmint API call
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'www' : 'staging';
+    const baseUrl = process.env?.NODE_ENV === 'production' ? 'www' : 'staging';
     const crossmintResponse = await fetch(`https://${baseUrl}.crossmint.com/api/2022-06-09/orders`, {
       method: 'POST',
       headers: {
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
     });
     
     if (!crossmintResponse.ok) {
-      const errorData = await crossmintResponse.json();
+      const errorData = await crossmintResponse?.json();
       console.error('Crossmint API error:', errorData);
       return NextResponse.json(
         { error: 'Failed to create order with Crossmint', details: errorData },
@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const result = await crossmintResponse.json();
+    const result = await crossmintResponse?.json();
     
     console.log('Order created successfully:', result);
     
@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
       });
       
       if (!transactionResponse.ok) {
-        const transactionError = await transactionResponse.json();
+        const transactionError = await transactionResponse?.json();
         console.error('Transaction signing error:', transactionError);
         return NextResponse.json(
           { error: 'Order created but payment failed', details: transactionError, orderId: result.order.id },
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
         );
       }
       
-      const transactionResult = await transactionResponse.json();
+      const transactionResult = await transactionResponse?.json();
       console.log('Payment transaction successful:', transactionResult);
       
       return NextResponse.json({

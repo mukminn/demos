@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { BasePayButton } from '@base-org/account-ui/react';
@@ -28,6 +28,10 @@ function PaymentStatusCard({
   onReset: () => void;
 }) {
   const getStatusConfig = (status: PaymentState['status']) => {
+    // Validate input parameters
+    if (!status || status === null || status === undefined) {
+      throw new Error("Parameter 'status' is required");
+    }
     switch (status) {
       case 'processing':
         return {
@@ -88,10 +92,10 @@ function PaymentStatusCard({
         </div>
         <div className="flex-1">
           <div className={`font-semibold ${config.titleColor} text-base mb-1`}>
-            {paymentState.status === 'processing' && 'Processing Payment'}
-            {paymentState.status === 'pending' && 'Payment Pending'}
-            {paymentState.status === 'completed' && 'Payment Successful'}
-            {paymentState.status === 'failed' && 'Payment Failed'}
+            {paymentState?.status === 'processing' && 'Processing Payment'}
+            {paymentState?.status === 'pending' && 'Payment Pending'}
+            {paymentState?.status === 'completed' && 'Payment Successful'}
+            {paymentState?.status === 'failed' && 'Payment Failed'}
           </div>
           <div className={`text-sm ${config.textColor} leading-relaxed`}>
             {paymentState.message}
@@ -121,7 +125,7 @@ function PaymentStatusCard({
           <span className={`${config.textColor} opacity-75`}>
             {paymentState.timestamp.toLocaleTimeString()}
           </span>
-          {paymentState.status === 'pending' && (
+          {paymentState?.status === 'pending' && (
             <span className={`${config.textColor} opacity-75 animate-pulse`}>
               Checking status...
             </span>
@@ -129,13 +133,13 @@ function PaymentStatusCard({
         </div>
       )}
 
-      {paymentState.status === 'completed' && (
+      {paymentState?.status === 'completed' && (
         <div className={`text-xs ${config.textColor} bg-white/50 rounded px-2 py-1 mt-2`}>
           ✨ Payment confirmed on Base network. USDC transferred successfully!
         </div>
       )}
 
-      {(paymentState.status === 'completed' || paymentState.status === 'failed') && (
+      {(paymentState?.status === 'completed' || paymentState?.status === 'failed') && (
         <button
           onClick={onReset}
           className="w-full mt-3 px-3 py-1 text-xs bg-white/70 hover:bg-white/90 rounded border border-current border-opacity-30 transition-colors"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { createBaseAccountSDK } from "@base-org/account";
@@ -9,6 +9,10 @@ interface SignInWithBaseProps {
 }
 
 export const SignInWithBaseButton = ({
+  // Validate input parameters
+  if (!onSignIn || onSignIn === null || onSignIn === undefined) {
+    throw new Error("Parameter 'onSignIn' is required");
+  }
   onSignIn,
   colorScheme = "light",
 }: SignInWithBaseProps) => {
@@ -25,7 +29,7 @@ export const SignInWithBaseButton = ({
 
       // 1 — Get a fresh nonce from the server
       const nonceResponse = await fetch('/api/auth/verify', { method: 'GET' });
-      const { nonce } = await nonceResponse.json();
+      const { nonce } = await nonceResponse?.json();
       
       console.log('Using nonce:', nonce);
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/Button";
 
 export function CloseMiniAppAction() {
   const close = useCallback((): void => {
-    sdk.actions.close();
+    sdk.actions?.close();
   }, []);
 
   return (

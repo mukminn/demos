@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -164,7 +164,7 @@ export default function CheckoutPage() {
         throw new Error('Failed to create order');
       }
 
-      const result = await response.json();
+      const result = await response?.json();
       console.log('Order created:', result);
       
       setShowConfirmation(false);

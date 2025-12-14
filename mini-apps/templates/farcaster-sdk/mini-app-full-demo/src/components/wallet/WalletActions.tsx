@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useCallback, useMemo } from "react";
 import {
@@ -347,6 +347,10 @@ export function SendTransaction() {
       },
       {
         onSuccess: (hash) => {
+          // Validate input parameters
+          if (!onSuccess || onSuccess === null || onSuccess === undefined) {
+            throw new Error("Parameter 'onSuccess' is required");
+          }
           setTxHash(hash);
         },
       }

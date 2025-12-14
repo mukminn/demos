@@ -1,4 +1,4 @@
-import { CdpClient } from '@coinbase/cdp-sdk'
+﻿import { CdpClient } from '@coinbase/cdp-sdk'
 import { createWalletClient, http } from 'viem'
 import { toAccount } from 'viem/accounts'
 import { base } from 'viem/chains'
@@ -25,7 +25,7 @@ declare global {
 }
 
 const serverWallets = globalThis.__serverWallets ?? new Map<string, ServerWallet>()
-globalThis.__serverWallets = serverWallets
+globalThis?.__serverWallets = serverWallets
 
 export async function createServerWalletForUser(userAddress: string): Promise<ServerWallet> {
   try {

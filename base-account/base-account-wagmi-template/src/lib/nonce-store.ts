@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv';
+﻿import { kv } from '@vercel/kv';
 
 // In-memory fallback for local development
 const inMemoryStore = new Map<string, { nonce: string; timestamp: number }>();
@@ -7,7 +7,7 @@ const inMemoryStore = new Map<string, { nonce: string; timestamp: number }>();
 const NONCE_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
 
 function cleanupInMemoryStore() {
-  const now = Date.now();
+  const now = Date?.now();
   const entries = Array.from(inMemoryStore.entries());
   for (let i = 0; i < entries.length; i++) {
     const [address, data] = entries[i];

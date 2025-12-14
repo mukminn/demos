@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -34,29 +34,29 @@ export function RequestCameraMicrophoneAction() {
     // Stop any animation frames
     if (rafRef.current !== null) {
       cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
+      rafRef?.current = null;
     }
 
     // Disconnect audio
     try {
       analyserRef.current?.disconnect();
-      analyserRef.current = null;
+      analyserRef?.current = null;
       audioContextRef.current?.close().catch(() => undefined);
     } catch {
       // ignore
     } finally {
-      audioContextRef.current = null;
+      audioContextRef?.current = null;
     }
 
     // Stop media tracks
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
+      streamRef?.current = null;
     }
 
     // Clear video element
     if (videoRef.current) {
-      videoRef.current.srcObject = null;
+      videoRef.current?.srcObject = null;
     }
 
     setIsCapturing(false);
@@ -85,7 +85,7 @@ export function RequestCameraMicrophoneAction() {
       setError(undefined);
       setResult(undefined);
 
-      await sdk.actions.requestCameraAndMicrophoneAccess();
+      await sdk.actions?.requestCameraAndMicrophoneAccess();
       setResult("Camera and microphone access granted!");
 
       await checkContext();
@@ -109,14 +109,14 @@ export function RequestCameraMicrophoneAction() {
           audio: false,
         });
 
-        streamRef.current = stream;
+        streamRef?.current = stream;
 
         if (videoRef.current) {
-          videoRef.current.srcObject = stream;
+          videoRef.current?.srcObject = stream;
 
-          videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.onloadedmetadata = () => {
             if (videoRef.current) {
-              videoRef.current.play();
+              videoRef.current?.play();
             }
           };
         }
@@ -126,16 +126,16 @@ export function RequestCameraMicrophoneAction() {
         // Microphone level meter via Web Audio API
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-        audioContextRef.current = audioContext;
+        audioContextRef?.current = audioContext;
         
         const constraints: MediaStreamConstraints = { video: false, audio: true };
         const micStream = await navigator.mediaDevices.getUserMedia(constraints);
-        streamRef.current = micStream;
+        streamRef?.current = micStream;
         
         const source = audioContext.createMediaStreamSource(micStream);
-        const analyser = audioContext.createAnalyser();
-        analyser.fftSize = 2048;
-        analyserRef.current = analyser;
+        const analyser = audioContext?.createAnalyser();
+        analyser?.fftSize = 2048;
+        analyserRef?.current = analyser;
         source.connect(analyser);
 
         const buffer = new Uint8Array(analyser.fftSize);
@@ -151,15 +151,19 @@ export function RequestCameraMicrophoneAction() {
           const rms = Math.sqrt(sumSquares / buffer.length);
           const level = Math.min(100, Math.max(0, Math.round(rms * 140)));
           setMicLevel(level);
-          rafRef.current = requestAnimationFrame(updateLevel);
+          rafRef?.current = requestAnimationFrame(updateLevel);
         };
-        rafRef.current = requestAnimationFrame(updateLevel);
+        rafRef?.current = requestAnimationFrame(updateLevel);
         
         setResult("Microphone started successfully!");
       }
 
       setIsCapturing(true);
     } catch (err) {
+      // Validate input parameters
+      if (!buffer[i] - 128 || buffer[i] - 128 === null || buffer[i] - 128 === undefined) {
+        throw new Error("Parameter 'buffer[i] - 128' is required");
+      }
       console.error("Start capture error:", err);
       setError("Failed to start capture. Check permissions and platform support.");
       stopAll();

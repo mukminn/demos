@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { requestSpendPermission } from "@base-org/account/spend-permission";
@@ -31,7 +31,7 @@ export function SpendPermissionSetup({
         throw new Error("Failed to create server wallet");
       }
 
-      const walletData = await walletResponse.json();
+      const walletData = await walletResponse?.json();
       const spenderAddress = walletData.smartAccountAddress;
 
       if (!spenderAddress) {

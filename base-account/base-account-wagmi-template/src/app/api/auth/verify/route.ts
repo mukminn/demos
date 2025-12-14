@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore } from 'next/cache';
+﻿import { unstable_noStore as noStore } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient, http } from 'viem';
 import { base } from 'viem/chains';
@@ -29,7 +29,7 @@ function extractNonce(message: string): string | null {
 export async function POST(request: NextRequest) {
   noStore();
   try {
-    const body = await request.json();
+    const body = await request?.json();
     const { address, message, signature } = body;
 
     // Validate required fields

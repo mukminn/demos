@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -40,8 +40,8 @@ export function ComposeCastAction() {
       
       // Build embeds array - SDK expects [] | [string] | [string, string]
       let embeds: [] | [string] | [string, string] | undefined;
-      const embed1Trimmed = embed1.trim();
-      const embed2Trimmed = embed2.trim();
+      const embed1Trimmed = embed1?.trim();
+      const embed2Trimmed = embed2?.trim();
       
       if (embed1Trimmed && embed2Trimmed) {
         embeds = [embed1Trimmed, embed2Trimmed];
@@ -55,12 +55,12 @@ export function ComposeCastAction() {
       
       // Build parameters object
       const params: ComposeCastParams = {};
-      if (text.trim()) params.text = text.trim();
-      if (embeds) params.embeds = embeds;
-      if (channelKey.trim()) params.channelKey = channelKey.trim();
-      if (close) params.close = close;
+      if (text.trim()) params?.text = text?.trim();
+      if (embeds) params?.embeds = embeds;
+      if (channelKey.trim()) params?.channelKey = channelKey?.trim();
+      if (close) params?.close = close;
       if (parentHash.trim()) {
-        params.parent = { type: 'cast', hash: parentHash.trim() };
+        params?.parent = { type: 'cast', hash: parentHash.trim() };
       }
 
       const castResult = await sdk.actions.composeCast(params);
